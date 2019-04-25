@@ -1,0 +1,26 @@
+public static List<String> generate_phrases(List<String> phrases){
+	List<String> res = new ArrayList<String>();
+	HashMap<String, String> first_map = new HashMap<String, String>();
+	HashMap<String, String> last_map = new HashMap<String, String>();
+	for(int i  = 0 ; i < phrases.size(); i++){
+		String[] arr = phrases.get(i).split("\\s+");
+		last_map.put(arr[arr.length-1], phrases.get(i));
+		first_map.put(arr[0], phrases.get(i));
+	}
+	for(Entry<String, String> entry : last_map.entrySet()){
+		if(first_map.containsKey(entry.getKey())){
+			res.add(merge(entry.getValue(), first_map.get(entry.getKey())));
+		}
+	}
+	return res;
+}
+public static String merge(String s1, String s2){
+	StringBuilder sb = new StringBuilder(s1);
+	sb.append(" ");
+	String[] arr = s2.split("\\s+");
+	for(int i =1; i < arr.length-1; i++){
+		sb.append(arr[i]+" ");
+	}
+	sb.append(arr[arr.length-1]);
+	return sb.toString();
+}
